@@ -2,7 +2,8 @@
 import { ref } from 'vue';
 import { RouterView, RouterLink } from 'vue-router';
 
-const theme = ref('dark');
+type ThemeTypes = 'dark' | 'light';
+const theme = ref<ThemeTypes>('dark');
 
 function toggleDarkMode() {
   if (theme.value === 'light') {
@@ -16,11 +17,11 @@ function toggleDarkMode() {
 </script>
 
 <template>
-  <div class="flex flex-col h-full bg-white dark:bg-zinc-800 text-black dark:text-white grow">
+  <div class="flex flex-col h-full bg-white dark:bg-zinc-950 text-black dark:text-white grow">
 
     <header
       class="py-3 px-5 flex items-center justify-between border-b border-neutral-800 bg-neutral-200 dark:bg-zinc-900 dark:border-neutral-600">
-      <h1 class="text-2xl font-bold">Sales App</h1>
+      <h1 class="text-2xl font-bold text-indigo-600">Sales App</h1>
       <button @click="toggleDarkMode">Dark</button>
     </header>
 
@@ -43,7 +44,7 @@ function toggleDarkMode() {
                 <span class="text-2xl">Sales</span>
               </li>
             </router-link>
-            <router-link to="/">
+            <router-link to="/products">
               <li class="flex gap-4 items-center px-4 py-3 hover:bg-neutral-500 cursor-pointer">
                 <span class="text-4xl">O</span>
                 <span class="text-2xl">Products</span>
@@ -53,7 +54,7 @@ function toggleDarkMode() {
         </nav>
 
       </div>
-      <div class="flex flex-col grow">
+      <div class="flex flex-col grow px-2 pb-4 lg:px-4 w-full max-w-5xl mx-auto">
         <router-view></router-view>
       </div>
     </div>
