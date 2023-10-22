@@ -5,6 +5,7 @@ type Product = {
   reference: string,
   price?: number,
   stock: number,
+  isActive: boolean;
 }
 type IProduct = Product & {
   id: number;

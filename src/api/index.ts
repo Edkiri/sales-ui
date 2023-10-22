@@ -7,7 +7,6 @@ export async function createProduct(payload: Product) {
     `${API_URL}/products`,
     payload
   );
-  await new Promise((res, _rej) => setTimeout(() => res(null), 1000));
   return data;
 }
 
@@ -15,6 +14,19 @@ export async function findProducts() {
   const { data } = await axios.get<any, AxiosResponse<IProduct[]>, any>(
     `${API_URL}/products`
   );
-  await new Promise((res, _rej) => setTimeout(() => res(null), 1000));
+  return data;
+}
+
+export async function getProductDetails(id: string | number) {
+  const { data } = await axios.get<any, AxiosResponse<IProduct>, any>(
+    `${API_URL}/products/${id}`
+  );
+  return data;
+}
+
+export async function updateProduct(id: string | number, payload: Product) {
+  const { data } = await axios.put<any, AxiosResponse<IProduct>, any>(
+    `${API_URL}/products/${id}`, payload
+  );
   return data;
 }

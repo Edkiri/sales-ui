@@ -2,9 +2,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { findProducts } from '../../../api';
+import router from '../../../router';
 
-const headingStyles = "text-left p-2 py-3 bg-blue-400 dark:bg-blue-800 border-neutral-800 dark:border-neutral-600";
-const cellStyles = "p-2 bg-neutral-100 dark:bg-zinc-900";
+const headStyles = "text-left p-2 py-3 bg-blue-400 dark:bg-blue-900 border-neutral-800 dark:border-neutral-600";
 
 const products = ref<IProduct[]>([]);
 const loading = ref(true);
@@ -29,22 +29,34 @@ getData();
   <table v-if="!loading" class="w-full border border-neutral-800 dark:border-neutral-600">
     <thead>
       <tr>
-        <th :class="headingStyles">Name</th>
-        <th :class="headingStyles">Description</th>
-        <th :class="headingStyles">Brand</th>
-        <th :class="headingStyles">Reference</th>
-        <th :class="headingStyles">Price</th>
-        <th :class="headingStyles">Stock</th>
+        <th :class="headStyles">Estado</th>
+        <th :class="headStyles">Referencia</th>
+        <th :class="headStyles">Nombre</th>
+        <th :class="headStyles">Marca</th>
+        <th :class="headStyles">Precio</th>
+        <th :class="headStyles">Stock</th>
+        <th :class="headStyles">Acciones</th>
       </tr>
     </thead>
-    <tbody>
-      <tr v-for="product in products" :key="product.id">
-        <td :class="cellStyles">{{ product.name }}</td>
-        <td :class="cellStyles">{{ product.description }}</td>
-        <td :class="cellStyles">{{ product.brand }}</td>
-        <td :class="cellStyles">{{ product.reference }}</td>
-        <td :class="cellStyles">{{ product.price }}</td>
-        <td :class="cellStyles">{{ product.stock }}</td>
+    <tbody class="bg-neutral-100 dark:bg-zinc-900">
+      <tr v-for="(product, index) in products" :key="product.id" class="h-full"
+        :class="` ${index % 2 === 0 ? ' bg-zinc-200 dark:bg-zinc-800' : ''}`">
+        <td class="px-2 py-4  align-middle" >
+          <div class="w-3 h-3 rounded-full ml-3" :class="`${product.isActive ? 'bg-green-500' : 'bg-red-500'} `"></div>
+        </td>
+        <td class="px-2 py-4  align-middle">{{ product.reference }}</td>
+        <td class="px-2 py-4  align-middle">{{ product.name }}</td>
+        <td class="px-2 py-4  align-middle">{{ product.brand }}</td>
+        <td class="px-2 py-4  align-middle">{{ product.price }}</td>
+        <td class="px-2 py-4  align-middle">{{ product.stock }}</td>
+        <td class="px-2 py-4  align-middle flex gap-4 font-bold h-full">
+          <div class="flex gap-2 h-100 items-center">
+            <button class=" hover:opacity-100 opacity-60 px-3 rounded border border-yellow-500 text-yellow-500"
+              @click="router.push(`/update-product/${product.id}`)">detalle</button>
+
+          </div>
+
+        </td>
       </tr>
     </tbody>
   </table>

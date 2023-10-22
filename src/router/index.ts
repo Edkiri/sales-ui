@@ -17,6 +17,10 @@ const routes = [
     path: "/create-product",
     component: () => import("../core/products/views/CreateProduct.vue"),
   },
+  {
+    path: "/update-product/:id",
+    component: () => import("../core/products/views/UpdateProduct.vue"),
+  },
 ];
 
 const router = createRouter({
