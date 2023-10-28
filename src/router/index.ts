@@ -21,6 +21,18 @@ const routes = [
     path: "/update-product/:id",
     component: () => import("../core/products/views/UpdateProduct.vue"),
   },
+  {
+    path: "/clients",
+    component: () => import("../core/clients/views/Clients.vue"),
+  },
+  {
+    path: "/create-client",
+    component: () => import("../core/clients/views/CreateClient.vue"),
+  },
+  {
+    path: "/update-client/:id",
+    component: () => import("../core/clients/views/UpdateClient.vue"),
+  },
 ];
 
 const router = createRouter({

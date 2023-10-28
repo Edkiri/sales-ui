@@ -38,10 +38,10 @@ function toggleDarkMode() {
                 <span class="text-2xl">Órdenes</span>
               </li>
             </router-link>
-            <router-link to="/">
+            <router-link to="/clients">
               <li class="flex gap-4 items-center px-4 py-3 hover:bg-neutral-500 cursor-pointer">
                 <span class="text-4xl">O</span>
-                <span class="text-2xl">Ventas</span>
+                <span class="text-2xl">Clientes</span>
               </li>
             </router-link>
             <router-link to="/products">
