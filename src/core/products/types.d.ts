@@ -10,3 +10,10 @@ type Product = {
 type IProduct = Product & {
   id: number;
 };
+type ProductFilters = {
+  name?: string;
+  reference?: string,
+  isActive?: boolean;
+  limit?: number;
+  offset?: number;
+}

@@ -1,18 +1,30 @@
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { findProducts } from '../../../api';
 import router from '../../../router';
+import AppInput from '../../../components/AppInput.vue';
+import AppButton from '../../../components/AppButton.vue';
 
 const headStyles = "text-left p-2 py-3 bg-blue-400 dark:bg-blue-900 border-neutral-800 dark:border-neutral-600";
 
-const products = ref<IProduct[]>([]);
+const filters = reactive({
+  name: '',
+  reference: '',
+  limit: 5,
+  offset: 0,
+});
+const products = ref<IProduct[] | null>(null);
 const loading = ref(true);
+const currentPage = ref(1);
+const totalPages = ref(0);
 
 async function getData() {
   try {
-    const response = await findProducts();
-    products.value = response;
+    loading.value = true;
+    const response = await findProducts(filters);
+    products.value = response.products;
+    totalPages.value = Math.ceil(response.totalCount / filters.limit);
   } catch (error) {
     console.log(error);
   }
@@ -20,13 +32,40 @@ async function getData() {
     loading.value = false;
   }
 }
+
+function nextPage() {
+  filters.offset = filters.offset + filters.limit;
+  currentPage.value++;
+  getData();
+}
 getData();
+
+function previousPage() {
+  filters.offset = filters.offset - filters.limit;
+  currentPage.value--;
+  getData();
+}
 
 </script>
 
 <template>
-  <h1 v-if="loading" class="text-2xl text-center my-4">Cargando</h1>
-  <table v-if="!loading" class="w-full border border-neutral-800 dark:border-neutral-600">
+  <form @submit.prevent="getData" class="max-w-lg flex gap-4 my-2 items-center">
+    <app-input :isLoading="loading" :small="true" label="Nombre" v-model:value="filters.name"></app-input>
+    <app-input :isLoading="loading" :small="true" label="Referencia" v-model:value="filters.reference"></app-input>
+
+    <div class="min-h-full flex self-end">
+
+      <app-button :disabled="loading" label="Buscar"></app-button>
+    </div>
+
+  </form>
+
+  <div class="flex gap-4 items-center pb-2 justify-end">
+    <h4>page {{ currentPage }} of {{ totalPages }}</h4>
+    <button @click="previousPage" :disabled="currentPage === 1"  class="text-sm text-indigo-400">{{ '<' }} anterior</button>
+    <button @click="nextPage" :disabled="currentPage === totalPages"  class="text-sm text-indigo-400">siguiente ></button>
+  </div>
+  <table class="w-full border border-neutral-800 dark:border-neutral-600">
     <thead>
       <tr>
         <th :class="headStyles">Estado</th>
@@ -38,18 +77,19 @@ getData();
         <th :class="headStyles">Acciones</th>
       </tr>
     </thead>
+
     <tbody class="bg-neutral-100 dark:bg-zinc-900">
       <tr v-for="(product, index) in products" :key="product.id" class="h-full"
         :class="` ${index % 2 === 0 ? ' bg-zinc-200 dark:bg-zinc-800' : ''}`">
-        <td class="px-2 py-4  align-middle" >
+        <td class="px-2 py-4  align-middle">
           <div class="w-3 h-3 rounded-full ml-3" :class="`${product.isActive ? 'bg-green-500' : 'bg-red-500'} `"></div>
         </td>
-        <td class="px-2 py-4  align-middle">{{ product.reference }}</td>
-        <td class="px-2 py-4  align-middle">{{ product.name }}</td>
-        <td class="px-2 py-4  align-middle">{{ product.brand }}</td>
-        <td class="px-2 py-4  align-middle">{{ product.price }}</td>
-        <td class="px-2 py-4  align-middle">{{ product.stock }}</td>
-        <td class="px-2 py-4  align-middle flex gap-4 font-bold h-full">
+        <td class="px-2 py-4 align-middle">{{ product.reference }}</td>
+        <td class="px-2 py-4 align-middle">{{ product.name }}</td>
+        <td class="px-2 py-4 align-middle">{{ product.brand }}</td>
+        <td class="px-2 py-4 align-middle">{{ product.price }}</td>
+        <td class="px-2 py-4 align-middle">{{ product.stock }}</td>
+        <td class="px-2 py-4 align-middle flex gap-4 font-bold h-full">
           <div class="flex gap-2 h-100 items-center">
             <button class=" hover:opacity-100 opacity-60 px-3 rounded border border-yellow-500 text-yellow-500"
               @click="router.push(`/update-product/${product.id}`)">detalle</button>

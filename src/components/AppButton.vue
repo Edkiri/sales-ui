@@ -1,5 +1,5 @@
 <template>
-  <button :disabled="disabled" class="mt-6 mb-2 self-center py-1 px-6 rounded bg-blue-400 dark:bg-blue-800"
+  <button :disabled="disabled" class="mt-6 mb-2 self-center py-1 px-6 rounded bg-blue-400 dark:bg-blue-800 hover:dark:bg-blue-700"
     :class="{ disabled: disabled }">
     {{ label }}
   </button>

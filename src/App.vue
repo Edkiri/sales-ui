@@ -35,26 +35,26 @@ function toggleDarkMode() {
             <router-link to="/orders">
               <li class="flex gap-4 items-center px-4 py-3 hover:bg-neutral-500 cursor-pointer">
                 <span class="text-4xl">O</span>
-                <span class="text-2xl">Orders</span>
+                <span class="text-2xl">Órdenes</span>
               </li>
             </router-link>
             <router-link to="/">
               <li class="flex gap-4 items-center px-4 py-3 hover:bg-neutral-500 cursor-pointer">
                 <span class="text-4xl">O</span>
-                <span class="text-2xl">Sales</span>
+                <span class="text-2xl">Ventas</span>
               </li>
             </router-link>
             <router-link to="/products">
               <li class="flex gap-4 items-center px-4 py-3 hover:bg-neutral-500 cursor-pointer">
                 <span class="text-4xl">O</span>
-                <span class="text-2xl">Products</span>
+                <span class="text-2xl">Productos</span>
               </li>
             </router-link>
           </ul>
         </nav>
 
       </div>
-      <div class="flex flex-col grow px-2 pb-4 lg:px-4 w-full max-w-5xl mx-auto relative overflow-hidden">
+      <div class="flex flex-col grow px-2 pb-4 lg:px-4 w-full max-w-7xl mx-auto relative overflow-hidden">
         <router-view></router-view>
       </div>
     </div>

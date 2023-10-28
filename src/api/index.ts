@@ -10,9 +10,11 @@ export async function createProduct(payload: Product) {
   return data;
 }
 
-export async function findProducts() {
-  const { data } = await axios.get<any, AxiosResponse<IProduct[]>, any>(
-    `${API_URL}/products`
+type FindProductsResponse = { products: IProduct[]; totalCount: number };
+export async function findProducts(query: ProductFilters) {
+  const { data } = await axios.get<any, AxiosResponse<FindProductsResponse>, any>(
+    `${API_URL}/products`,
+    { params: query }
   );
   return data;
 }
@@ -26,7 +28,8 @@ export async function getProductDetails(id: string | number) {
 
 export async function updateProduct(id: string | number, payload: Product) {
   const { data } = await axios.put<any, AxiosResponse<IProduct>, any>(
-    `${API_URL}/products/${id}`, payload
+    `${API_URL}/products/${id}`,
+    payload
   );
   return data;
 }

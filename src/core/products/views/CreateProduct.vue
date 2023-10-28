@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submit" class="my-4 flex flex-col  p-4 w-full rounded max-w-xl mx-auto">
+  <form @submit.prevent="submit" class="my-4 flex flex-col  p-4 w-full rounded max-w-3xl mx-auto">
     <h3 class="text-xl text-center my-1">Crear Producto</h3>
 
     <div class="flex flex-col gap-2">
