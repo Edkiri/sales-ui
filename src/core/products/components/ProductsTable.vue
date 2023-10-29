@@ -8,7 +8,17 @@ import AppButton from '../../../components/AppButton.vue';
 
 const headStyles = "text-left p-2 py-3 bg-blue-400 dark:bg-blue-900 border-neutral-800 dark:border-neutral-600";
 
-const filters = reactive({
+const props = defineProps({
+  selecting: {
+    type: Boolean,
+    default: false,
+  },
+  selected: {
+    type: Object as () => IProduct
+  }
+});
+
+const filters = reactive<ProductFilters>({
   name: '',
   reference: '',
   limit: 5,
@@ -22,9 +32,12 @@ const totalPages = ref(0);
 async function getData() {
   try {
     loading.value = true;
+    if (props.selected) {
+      filters.isActive = true;
+    }
     const response = await findProducts(filters);
     products.value = response.products;
-    totalPages.value = Math.ceil(response.totalCount / filters.limit);
+    totalPages.value = Math.ceil(response.totalCount / filters.limit!);
   } catch (error) {
     console.log(error);
   }
@@ -34,14 +47,14 @@ async function getData() {
 }
 
 function nextPage() {
-  filters.offset = filters.offset + filters.limit;
+  filters.offset = filters.offset! + filters.limit!;
   currentPage.value++;
   getData();
 }
 getData();
 
 function previousPage() {
-  filters.offset = filters.offset - filters.limit;
+  filters.offset = filters.offset! - filters.limit!;
   currentPage.value--;
   getData();
 }
@@ -62,8 +75,10 @@ function previousPage() {
 
   <div class="flex gap-4 items-center pb-2 justify-end">
     <h4>página {{ currentPage }} de {{ totalPages }}</h4>
-    <button @click="previousPage" :disabled="currentPage === 1"  class="text-sm text-indigo-400">{{ '<' }} anterior</button>
-    <button @click="nextPage" :disabled="currentPage === totalPages"  class="text-sm text-indigo-400">siguiente ></button>
+    <button @click="previousPage" :disabled="currentPage === 1" class="text-sm text-indigo-400">{{ '<' }}
+        anterior</button>
+        <button @click="nextPage" :disabled="currentPage === totalPages" class="text-sm text-indigo-400">siguiente
+          ></button>
   </div>
   <table class="w-full border border-neutral-800 dark:border-neutral-600">
     <thead>
@@ -91,8 +106,12 @@ function previousPage() {
         <td class="px-2 py-4 align-middle">{{ product.stock }}</td>
         <td class="px-2 py-4 align-middle flex gap-4 font-bold h-full">
           <div class="flex gap-2 h-100 items-center">
-            <button class=" hover:opacity-100 opacity-60 px-3 rounded border border-yellow-500 text-yellow-500"
+            <button v-if="!selecting"
+              class=" hover:opacity-100 opacity-60 px-3 rounded border border-yellow-500 text-yellow-500"
               @click="router.push(`/update-product/${product.id}`)">detalle</button>
+            <button v-if="selecting"
+              class=" hover:opacity-100 opacity-60 px-3 rounded border border-green-500 text-green-500"
+              @click="$emit('update:selected', product)">agregar</button>
 
           </div>
 

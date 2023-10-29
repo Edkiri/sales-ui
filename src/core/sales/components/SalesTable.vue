@@ -78,7 +78,7 @@ function getTotalSale(orders: IOrder[]) {
         <td class="px-2 py-4 align-middle flex gap-4 font-bold h-full">
           <div class="flex gap-2 h-100 items-center">
             <button class="hover:opacity-100 opacity-60 px-3 rounded border border-yellow-500 text-yellow-500"
-              @click="router.push(`/update-sale/${sale.id}`)">detalle</button>s
+              @click="router.push(`/update-sale/${sale.id}`)">detalle</button>
           </div>
 
         </td>
