@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-const API_URL = "http://localhost:3000";
+const API_URL = "http://localhost:3004";
 
 export async function createProduct(payload: Product) {
   const { data } = await axios.post<any, AxiosResponse<IProduct>, any>(
@@ -28,6 +28,15 @@ export async function findProducts(query: ProductFilters) {
   return data;
 }
 
+type FindSalesResponse = { sales: ISale[]; totalCount: number };
+export async function findSales(query: SaleFilters) {
+  const { data } = await axios.get<any, AxiosResponse<FindSalesResponse>, any>(
+    `${API_URL}/sales`,
+    { params: query }
+  );
+  return data;
+}
+
 export async function getProductDetails(id: string | number) {
   const { data } = await axios.get<any, AxiosResponse<IProduct>, any>(
     `${API_URL}/products/${id}`
@@ -41,7 +50,6 @@ export async function getClientDetails(id: string | number) {
   );
   return data;
 }
-
 
 export async function updateProduct(id: string | number, payload: Product) {
   const { data } = await axios.put<any, AxiosResponse<IProduct>, any>(

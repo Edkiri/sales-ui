@@ -32,10 +32,10 @@ function toggleDarkMode() {
           <button class="self-justify-start text-4xl px-4">X</button>
 
           <ul class="flex flex-col min-w-[300px]">
-            <router-link to="/orders">
+            <router-link to="/sales">
               <li class="flex gap-4 items-center px-4 py-3 hover:bg-neutral-500 cursor-pointer">
                 <span class="text-4xl">O</span>
-                <span class="text-2xl">Órdenes</span>
+                <span class="text-2xl">Ventas</span>
               </li>
             </router-link>
             <router-link to="/clients">

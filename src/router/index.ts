@@ -6,10 +6,6 @@ const routes = [
     component: () => import("../views/Home.vue"),
   },
   {
-    path: "/orders",
-    component: () => import("../views/Orders.vue"),
-  },
-  {
     path: "/products",
     component: () => import("../core/products/views/Products.vue"),
   },
@@ -32,6 +28,10 @@ const routes = [
   {
     path: "/update-client/:id",
     component: () => import("../core/clients/views/UpdateClient.vue"),
+  },
+  {
+    path: "/sales",
+    component: () => import("../core/sales/views/Sales.vue"),
   },
 ];
 
