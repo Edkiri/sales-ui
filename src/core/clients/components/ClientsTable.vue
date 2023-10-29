@@ -8,6 +8,17 @@ import AppButton from '../../../components/AppButton.vue';
 
 const headStyles = "text-left p-2 py-3 bg-blue-400 dark:bg-blue-900 border-neutral-800 dark:border-neutral-600";
 
+defineProps({
+  selected: {
+    type: Object as () => IClient,
+    required: false,
+  },
+  selecting: {
+    type: Boolean,
+    default: false,
+  }
+})
+
 const filters = reactive({
   name: '',
   limit: 5,
@@ -83,8 +94,12 @@ function previousPage() {
         <td class="px-2 py-4 align-middle">{{ client.phoneNumber }}</td>
         <td class="px-2 py-4 align-middle flex gap-4 font-bold h-full">
           <div class="flex gap-2 h-100 items-center">
-            <button class=" hover:opacity-100 opacity-60 px-3 rounded border border-yellow-500 text-yellow-500"
+            <button v-if="!selecting"
+              class=" hover:opacity-100 opacity-60 px-3 rounded border border-yellow-500 text-yellow-500"
               @click="router.push(`/update-client/${client.id}`)">detalle</button>
+            <button v-if="selecting"
+              class=" hover:opacity-100 opacity-60 px-3 rounded border border-blue-500 text-blue-500"
+              @click="$emit('update:selected', clients?.find(item => item.id === client.id))">select</button>
           </div>
 
         </td>

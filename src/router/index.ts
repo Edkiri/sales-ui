@@ -33,6 +33,10 @@ const routes = [
     path: "/sales",
     component: () => import("../core/sales/views/Sales.vue"),
   },
+  {
+    path: "/create-sale",
+    component: () => import("../core/sales/views/CreateSale.vue"),
+  },
 ];
 
 const router = createRouter({

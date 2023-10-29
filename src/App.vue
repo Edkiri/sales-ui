@@ -54,7 +54,7 @@ function toggleDarkMode() {
         </nav>
 
       </div>
-      <div class="flex flex-col grow px-2 pb-4 lg:px-4 w-full max-w-7xl mx-auto relative overflow-hidden">
+      <div class="flex flex-col grow px-2 pb-4 lg:px-4 w-full mx-auto relative overflow-hidden">
         <router-view></router-view>
       </div>
     </div>
