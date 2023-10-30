@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center my-2 gap-4">
-    <h4>Cliente </h4>
+    <h4>Producto </h4>
     <button class="hover:opacity-100 opacity-60 px-3 rounded border border-blue-500 text-blue-500"
       @click="renderClientModal">buscar</button>
     <button v-if="productSelected" class="hover:opacity-100 opacity-60 px-3 rounded border border-red-500 text-red-500"

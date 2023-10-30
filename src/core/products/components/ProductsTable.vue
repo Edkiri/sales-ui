@@ -32,7 +32,7 @@ const totalPages = ref(0);
 async function getData() {
   try {
     loading.value = true;
-    if (props.selected) {
+    if (props.selecting) {
       filters.isActive = true;
     }
     const response = await findProducts(filters);
