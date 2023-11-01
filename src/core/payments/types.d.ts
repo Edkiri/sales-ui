@@ -1,10 +1,21 @@
 type Payment = {
-  amount: number;
-  rate: number;
-  method: number;
-  currency: number;
+  amount: number | string;
+  rate: number | string;
+  method: IPaymentMethod | undefined;
+  currency: ICurrency | undefined;
+  temporaryId: string;
 };
 type IPayment = Payment & {
   id: number;
   saleId: number;
+  method: IPaymentMethod;
+  currency: ICurrency;
+};
+
+type PaymentMethod = {
+  name: string;
+  currencyId: number;
+};
+type IPaymentMethod = PaymentMethod & {
+  id: number;
 };

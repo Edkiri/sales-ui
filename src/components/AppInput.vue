@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-1 w-full"
-    :class="`${(small || compact) ? 'text-sm' : 'text-lg'} ${compact ? 'max-w-[120px]' : ''}`">
+    :class="`${(small || compact) ? 'text-sm' : 'text-md'} ${compact ? 'max-w-[120px]' : ''}`">
     <label class="px-2 text-neutral-600 dark:text-neutral-400 ">{{ label }}</label>
     <input
       class=" focus:border-neutral-700 focus:dark:border-neutral-600 outline-none rounded-sm border-2 border-neutral-400 dark:border-neutral-800 dark:bg-zinc-950"

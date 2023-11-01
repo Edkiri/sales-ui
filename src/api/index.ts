@@ -37,6 +37,20 @@ export async function findSales(query: SaleFilters) {
   return data;
 }
 
+export async function findCurrencies() {
+  const { data } = await axios.get<any, AxiosResponse<ICurrency[]>, any>(
+    `${API_URL}/currencies`
+  );
+  return data;
+}
+
+export async function findPaymentMethods() {
+  const { data } = await axios.get<any, AxiosResponse<IPaymentMethod[]>, any>(
+    `${API_URL}/payments/methods`
+  );
+  return data;
+}
+
 export async function getProductDetails(id: string | number) {
   const { data } = await axios.get<any, AxiosResponse<IProduct>, any>(
     `${API_URL}/products/${id}`

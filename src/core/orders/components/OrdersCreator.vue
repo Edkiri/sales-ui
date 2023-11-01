@@ -3,15 +3,16 @@
     <h4>Órdenes</h4>
     <button class="hover:opacity-100 opacity-60 px-3 rounded border border-green-500 text-green-500"
       @click="renderProductModal">agregar</button>
+    <span class="text-red-500 my-2" v-if="!orders.length">No hay órdenes creadas</span>
   </div>
 
   <div class="flex flex-col gap-4">
 
-    <div class="flex gap-4 my-1 justify-between border px-4 py-2 rounded border-neutral-800" v-if="orders.length"
+    <div class="flex gap-4 justify-between border p-2 my-2 rounded border-neutral-800" v-if="orders.length"
       v-for="(order, index) in orders" :key="index">
 
 
-      <div class="flex gap-2 my-1 w-full items-center">
+      <div class="flex gap-2 w-full items-center">
         <div class="flex gap-1 grow items-center">
 
           <div class="flex items-center gap-4">
@@ -26,24 +27,15 @@
 
         </div>
 
-
-        <div class="flex gap-4 my-2">
-          <div class="flex gap-2 justify-between items-center">
-            <span class="text-neutral-500">Precio</span>
-            <app-input compact small v-model:value="order.product.price"></app-input>
-          </div>
-          <div class="flex gap-2 justify-between items-center">
-            <span class="text-neutral-500">Cantidad</span>
-            <app-input compact small v-model:value="order.quantity"></app-input>
-          </div>
+        <div class="flex gap-4">
+          <app-input compact small label="Cantidad" v-model:value="order.quantity"></app-input>
+          <app-input compact small label="Precio" v-model:value="order.product.price"></app-input>
         </div>
-
       </div>
-
 
     </div>
   </div>
-  <span class="text-red-500 my-2" v-if="!orders.length">No hay órdenes creadas</span>
+
 
   <div @click="hideClientModal" v-if="showClientModal"
     class="absolute bg-zinc-900 top-0 right-0 left-0 bottom-0 opacity-70">
