@@ -6,10 +6,9 @@
       :class="{ 'border-neutral-700 dark:border-neutral-600': selecting, 'border-neutral-400 dark:border-neutral-800': !selecting }">
 
       <div @click="() => selecting = !selecting" class="items-center py-1 px-2 flex w-full justify-between">
-        <span class="select-none">{{ selectedPaymentMethod?.name || '' }}</span>
+        <span class="select-none">{{ paymentMethods.find(item => item.id === selectedMethodId)?.name || '' }}</span>
         <button class="transform rotate-90 select-none">></button>
       </div>
-
 
       <div class="flex  flex-col absolute right-0 left-0 top-full z-10" v-if="selecting">
         <span v-for="method in filteredMethods" :key="method.id"
@@ -23,41 +22,46 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { findPaymentMethods } from '../../../api';
 const selecting = ref(false);
 
-const selectedPaymentMethod = ref<IPaymentMethod | undefined>(undefined);
+const selectedPaymentMethodId = ref<number | undefined>(undefined);
 const paymentMethods = ref<IPaymentMethod[]>([]);
-const filteredMethods = ref<IPaymentMethod[]>([]);
 
 const props = defineProps({
-  currency: {
-    type: Object as () => ICurrency
+  currencyId: {
+    type: Number,
+    requited: true
   },
-  selected: {
-    type: Object as () => IPaymentMethod
+  selectedMethodId: {
+    type: Number,
+    requited: true
   }
 })
-const emit = defineEmits(['update:selected']);
+const emit = defineEmits(['update:selectedMethodId']);
 
-watch(() => props.currency, () => {
-  filteredMethods.value = paymentMethods.value.filter(item => item.currencyId === props.currency?.id);
-  selectedPaymentMethod.value = filteredMethods.value[0];
+const filteredMethods = computed<IPaymentMethod[]>(() => {
+  return paymentMethods.value.filter(item => item.currencyId === props.currencyId);
 })
-watch(selectedPaymentMethod, () => {
-  emit('update:selected', selectedPaymentMethod.value);
+
+watch(() => props.currencyId, () => {
+  selectedPaymentMethodId.value = filteredMethods.value[0].id;
+})
+
+watch(selectedPaymentMethodId, () => {
+  emit('update:selectedMethodId', selectedPaymentMethodId.value);
 })
 
 function selectMethod(method: IPaymentMethod) {
-  selectedPaymentMethod.value = method;
+  selectedPaymentMethodId.value = method.id;
   selecting.value = false;
 }
 
 async function getData() {
   const mathodsResponse = await findPaymentMethods();
   paymentMethods.value = mathodsResponse;
-  selectedPaymentMethod.value = paymentMethods.value[0];
+  selectedPaymentMethodId.value = paymentMethods.value[0].id;
 }
 getData();
 

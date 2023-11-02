@@ -24,7 +24,7 @@ const filters = reactive({
   limit: 5,
   offset: 0,
 });
-const clients = ref<IClient[] | null>(null);
+const clients = ref<IClient[] | undefined>(undefined);
 const loading = ref(true);
 const currentPage = ref(1);
 const totalPages = ref(0);
@@ -97,9 +97,9 @@ function previousPage() {
             <button v-if="!selecting"
               class=" hover:opacity-100 opacity-60 px-3 rounded border border-yellow-500 text-yellow-500"
               @click="router.push(`/update-client/${client.id}`)">detalle</button>
-            <button v-if="selecting"
+            <button v-if="(selecting && clients?.length)"
               class=" hover:opacity-100 opacity-60 px-3 rounded border border-blue-500 text-blue-500"
-              @click="$emit('update:selected', clients?.find(item => item.id === client.id))">select</button>
+              @click="$emit('update:selected', clients.find(item => item.id === client.id))">select</button>
           </div>
 
         </td>

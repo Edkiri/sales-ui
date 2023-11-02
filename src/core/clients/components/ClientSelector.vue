@@ -4,7 +4,7 @@
     <button class="hover:opacity-100 opacity-60 px-3 rounded border border-blue-500 text-blue-500"
       @click="renderClientModal">buscar</button>
     <button v-if="clientSelected" class="hover:opacity-100 opacity-60 px-3 rounded border border-red-500 text-red-500"
-      @click="$emit('update:client', undefined)">descartar</button>
+      @click="unselect">x</button>
     <span class="text-red-500 my-2" v-if="!clientSelected">No registrar</span>
 
 
@@ -41,6 +41,10 @@ function hideClientModal() {
   showClientModal.value = false;
 }
 
+function unselect() {
+  clientSelected.value = undefined;
+}
+
 defineProps({
   client: {
     type: Object as () => IClient,
@@ -51,7 +55,7 @@ const emit = defineEmits(['update:client']);
 
 watch(clientSelected, () => {
   hideClientModal();
-  emit('update:client', clientSelected);
+  emit('update:client', clientSelected.value);
 });
 
 </script>

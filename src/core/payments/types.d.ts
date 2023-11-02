@@ -1,9 +1,9 @@
 type Payment = {
   amount: number | string;
   rate: number | string;
-  method: IPaymentMethod | undefined;
-  currency: ICurrency | undefined;
-  temporaryId: string;
+  paymentMethodId: number;
+  currencyId: number;
+  temporaryId?: string;
 };
 type IPayment = Payment & {
   id: number;

@@ -12,11 +12,16 @@
   <div class="max-w-4xl flex flex-col gap-2">
     <div v-for="payment in payments" class="flex gap-4 my-2 items-stretch border p-2 rounded border-neutral-800">
       <button class="hover:opacity-100 opacity-60 px-2 rounded border border-red-500 text-red-500 self-start"
-        @click="deletePayment(payment.temporaryId)">X</button>
-      <currency-selector v-model:selected="payment.currency"></currency-selector>
-      <payment-method-selector v-model:currency="payment.currency" v-model:selected="payment.method"></payment-method-selector>
+        @click="deletePayment(payment.temporaryId!)">x</button>
+
+      <currency-selector v-model:selectedId="payment.currencyId"></currency-selector>
+
+      <payment-method-selector v-model:currencyId="payment.currencyId"
+        v-model:selectedMethodId="payment.paymentMethodId"></payment-method-selector>
+
       <app-input compact small label="Cantidad" v-model:value="payment.amount"></app-input>
       <app-input compact small label="Tasa" v-model:value="payment.rate"></app-input>
+
     </div>
   </div>
 </template>
@@ -37,11 +42,11 @@ const emit = defineEmits(['update:payments']);
 
 function createPayment() {
   emit('update:payments', [...props.payments, {
-    amount: '',
-    currency: undefined,
-    method: undefined,
-    rate: '',
-    temporaryId: uuidv4()
+    amount: 0,
+    currencyId: 1,
+    paymentMethodId: 1,
+    rate: 0,
+    temporaryId: uuidv4(),
   } as Payment])
 }
 

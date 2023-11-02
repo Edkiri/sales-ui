@@ -1,8 +1,9 @@
 type Order = {
   quantity: number;
   price: number;
-  product: IProduct;
-  temporaryId: string;
+  productId: number;
+  temporaryId?: string;
+  product?: IProduct;
 };
 type IOrder = Order & {
   id: number;

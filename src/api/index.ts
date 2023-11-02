@@ -18,6 +18,15 @@ export async function createClient(payload: Client) {
   return data;
 }
 
+export async function createSale(payload: Sale) {
+  console.log(payload);
+  const { data } = await axios.post<any, AxiosResponse<ISale>, any>(
+    `${API_URL}/sales`,
+    payload
+  );
+  return data;
+}
+
 type FindProductsResponse = { products: IProduct[]; totalCount: number };
 export async function findProducts(query: ProductFilters) {
   const { data } = await axios.get<

@@ -72,7 +72,7 @@ function getTotalSale(orders: IOrder[]) {
         <td class="px-2 py-4  align-middle">
           <div class="w-3 h-3 rounded-full ml-3" :class="`${sale.status ? 'bg-green-500' : 'bg-red-500'} `"></div>
         </td>
-        <td class="px-2 py-4 align-middle">{{ sale.client.name }}</td>
+        <td class="px-2 py-4 align-middle">{{ sale.client?.name || '' }}</td>
         <td class="px-2 py-4 align-middle">{{ sale.description }}</td>
         <td class="px-2 py-4 align-middle">{{ getTotalSale(sale.orders) }}</td>
         <td class="px-2 py-4 align-middle flex gap-4 font-bold h-full">
