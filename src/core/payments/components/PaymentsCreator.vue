@@ -9,7 +9,6 @@
     </div>
   </div>
 
-
   <div class="max-w-4xl flex flex-col gap-2">
     <div v-for="payment in payments" class="flex gap-4 my-2 items-stretch border p-2 rounded border-neutral-800">
 
@@ -50,7 +49,7 @@ function createPayment() {
     amount: 0,
     currencyId: 1,
     paymentMethodId: 1,
-    rate: 0,
+    rate: 1,
     temporaryId: uuidv4(),
   } as Payment])
 }

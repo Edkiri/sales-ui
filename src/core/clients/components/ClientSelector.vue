@@ -45,7 +45,7 @@ function unselect() {
   clientSelected.value = undefined;
 }
 
-defineProps({
+const props = defineProps({
   client: {
     type: Object as () => IClient,
   }
@@ -58,4 +58,7 @@ watch(clientSelected, () => {
   emit('update:client', clientSelected.value);
 });
 
+watch(() => props.client, () => {
+  clientSelected.value = props.client;
+})
 </script>

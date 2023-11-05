@@ -37,6 +37,10 @@ const routes = [
     path: "/create-sale",
     component: () => import("../core/sales/views/CreateSale.vue"),
   },
+  {
+    path: "/sales/:id",
+    component: () => import("../core/sales/views/SaleDetail.vue"),
+  },
 ];
 
 const router = createRouter({

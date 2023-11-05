@@ -16,7 +16,7 @@
 
     </div>
 
-    <app-button label="Actualizar cliente" :disabled="loading"></app-button>
+    <app-button type="submit" label="Actualizar cliente" :disabled="loading"></app-button>
 
     <div class="flex flex-col w-100 items-center mt-4 gap-1">
       <span v-if="Array.isArray(error) && error.length" v-for="err in error" :key="err"

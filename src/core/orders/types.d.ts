@@ -3,7 +3,7 @@ type Order = {
   price: number;
   productId: number;
   temporaryId?: string;
-  product?: IProduct;
+  product: IProduct;
 };
 type IOrder = Order & {
   id: number;

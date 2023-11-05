@@ -69,7 +69,7 @@ function previousPage() {
 
     <div class="min-h-full flex self-end">
 
-      <app-button :disabled="loading" label="Buscar"></app-button>
+      <app-button type="submit" :disabled="loading" label="Buscar"></app-button>
     </div>
 
   </form>

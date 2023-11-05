@@ -26,13 +26,13 @@ async function getData() {
     loading.value = false;
   }
 }
+getData();
 
 function nextPage() {
   filters.offset = filters.offset + filters.limit;
   currentPage.value++;
   getData();
 }
-getData();
 
 function previousPage() {
   filters.offset = filters.offset - filters.limit;
@@ -42,7 +42,13 @@ function previousPage() {
 
 function getTotalSale(orders: IOrder[]) {
   return orders.reduce((curr, order) => {
-    return curr + (order.price * order.quantity)
+    return curr + (order.price * order.quantity);
+  }, 0)
+}
+
+function getTotalProducts(orders: IOrder[]) {
+  return orders.reduce((curr, order) => {
+    return curr + order.quantity;
   }, 0)
 }
 
@@ -61,7 +67,7 @@ function getTotalSale(orders: IOrder[]) {
       <tr>
         <th :class="headStyles">Estado</th>
         <th :class="headStyles">Cliente</th>
-        <th :class="headStyles">Descripción</th>
+        <th :class="headStyles">Productos</th>
         <th :class="headStyles">Total $</th>
         <th :class="headStyles">Acciones</th>
       </tr>
@@ -74,13 +80,13 @@ function getTotalSale(orders: IOrder[]) {
           <div class="w-3 h-3 rounded-full ml-3" :class="`${sale.status ? 'bg-green-500' : 'bg-red-500'} `"></div>
         </td>
         <td class="px-2 py-4 align-middle">{{ sale.client?.name || '' }}</td>
-        <td class="px-2 py-4 align-middle">{{ sale.description }}</td>
+        <td class="px-2 py-4 align-middle">{{ getTotalProducts(sale.orders) }}</td>
         <td class="px-2 py-4 align-middle">{{ getTotalSale(sale.orders) }}</td>
         <td class="px-2 py-4 align-middle flex gap-4 font-bold h-full">
           <div class="flex gap-2 h-100 items-center">
 
             <outline-button color="yellow-500" label="detalle"
-              :click-function="() => router.push(`/update-sale/${sale.id}`)"></outline-button>
+              :click-function="() => router.push(`/sales/${sale.id}`)"></outline-button>
 
           </div>
 

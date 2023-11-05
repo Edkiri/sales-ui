@@ -31,7 +31,7 @@
 
         <div class="flex gap-4">
           <app-input compact small label="Cantidad" v-model:value="order.quantity"></app-input>
-          <app-input compact small label="Precio" v-model:value="order.product!.price"></app-input>
+          <app-input compact small label="Precio" v-model:value="order.price"></app-input>
         </div>
       </div>
 
@@ -79,11 +79,12 @@ const props = defineProps({
 const emit = defineEmits(['update:orders']);
 
 watch(selectedProduct, () => {
+  if (!selectedProduct.value?.id) return;
   const newOrder = {
     product: selectedProduct.value,
-    price: selectedProduct.value?.price,
+    price: selectedProduct.value.price,
     quantity: 1,
-    productId: selectedProduct.value?.id
+    productId: selectedProduct.value.id
   } as Order;
   emit('update:orders', [...props.orders, { ...newOrder, quantity: 1, temporaryId: uuidv4() } as Order]);
   hideProductModal();

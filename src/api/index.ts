@@ -74,6 +74,13 @@ export async function getClientDetails(id: string | number) {
   return data;
 }
 
+export async function saleDetails(id: string | number) {
+  const { data } = await axios.get<any, AxiosResponse<ISale>, any>(
+    `${API_URL}/sales/${id}`
+  );
+  return data;
+}
+
 export async function updateProduct(id: string | number, payload: Product) {
   const { data } = await axios.put<any, AxiosResponse<IProduct>, any>(
     `${API_URL}/products/${id}`,
