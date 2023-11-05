@@ -4,7 +4,7 @@
       <h1>Pagos</h1>
       <button type="button" class="hover:opacity-100 opacity-60 px-3 rounded border border-green-500 text-green-500"
         @click="createPayment">agregar</button>
-      <span class="text-red-500 my-2" v-if="!payments.length">No hay pagos creados</span>
+      <span class="text-red-500 my-2 font-light" v-if="!payments.length">No hay pagos creados</span>
     </div>
   </div>
 

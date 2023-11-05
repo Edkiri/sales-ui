@@ -3,7 +3,7 @@
     <h4>Órdenes</h4>
     <button type="button" class="hover:opacity-100 opacity-60 px-3 rounded border border-green-500 text-green-500"
       @click="renderProductModal">agregar</button>
-    <span class="text-red-500 my-2" v-if="!orders.length">No hay órdenes creadas</span>
+    <span class="text-red-500 font-light my-2" v-if="!orders.length">No hay órdenes creadas</span>
   </div>
 
   <div class="flex flex-col gap-4">

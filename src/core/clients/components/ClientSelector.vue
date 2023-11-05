@@ -1,12 +1,11 @@
 <template>
   <div class="flex items-center my-2 gap-4">
     <h4>Cliente </h4>
-    <button type="button" class="hover:opacity-100 opacity-60 px-3 rounded border border-blue-500 text-blue-500"
-      @click="renderClientModal">buscar</button>
-    <button type="button" v-if="clientSelected" class="hover:opacity-100 opacity-60 px-3 rounded border border-red-500 text-red-500"
-      @click="unselect">x</button>
-    <span class="text-red-500 my-2" v-if="!clientSelected">No registrar</span>
 
+    <outline-button color="blue-500" label="buscar" :click-function="renderClientModal"></outline-button>
+    <outline-button v-if="clientSelected" label="x" color="red-500" :click-function="unselect"></outline-button>
+
+    <span class="text-red-500 my-2 font-light" v-if="!clientSelected">No registrar</span>
 
     <div class="flex gap-8 my-2" v-if="clientSelected">
       <span>{{ clientSelected.name }}</span>
@@ -30,6 +29,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import ClientsTable from './ClientsTable.vue';
+import OutlineButton from '../../../components/OutlineButton.vue';
 
 const showClientModal = ref(false);
 const clientSelected = ref<IClient | undefined>(undefined);

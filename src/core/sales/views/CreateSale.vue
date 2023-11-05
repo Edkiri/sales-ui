@@ -21,11 +21,11 @@
 
     <div class="flex flex-col w-100 items-center mt-4 gap-1">
       <span v-if="Array.isArray(error) && error.length" v-for="err in error" :key="err"
-        class="text-red-700 text-md opacity-80">
+        class="text-red-700 text-md text-center opacity-80">
         {{ err }}
       </span>
 
-      <span v-if="!Array.isArray(error)" class="text-red-700 text-md opacity-80">
+      <span v-if="!Array.isArray(error)" class="text-red-700 text-md text-center opacity-80">
         {{ error }}
       </span>
     </div>
@@ -49,6 +49,10 @@ const loading = ref(false);
 const error = ref('');
 
 async function submit() {
+  if (!orders.value.length) {
+    error.value = 'Agrega al menos una orden para crear la venta';
+    return;
+  }
   try {
     loading.value = true;
     error.value = '';
