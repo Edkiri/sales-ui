@@ -7,7 +7,7 @@
 
       <div @click="() => selecting = !selecting" class="items-center py-1 px-2 flex w-full justify-between">
         <span class="select-none">{{ currencies.find(item => item.id === selectedCurrencyId)?.name }}</span>
-        <span class="transform rotate-90 select-none">></span>
+        <button type="button" class="transform rotate-90 select-none">></button>
       </div>
 
       <div class="flex flex-col bg-neutral-zinc-950 absolute right-0 left-0 top-full z-10" v-if="selecting">

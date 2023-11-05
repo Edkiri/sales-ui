@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-4">
     <div class="flex gap-4 items-center">
       <h1>Pagos</h1>
-      <button class="hover:opacity-100 opacity-60 px-3 rounded border border-green-500 text-green-500"
+      <button type="button" class="hover:opacity-100 opacity-60 px-3 rounded border border-green-500 text-green-500"
         @click="createPayment">agregar</button>
       <span class="text-red-500 my-2" v-if="!payments.length">No hay pagos creados</span>
     </div>
@@ -11,7 +11,8 @@
 
   <div class="max-w-4xl flex flex-col gap-2">
     <div v-for="payment in payments" class="flex gap-4 my-2 items-stretch border p-2 rounded border-neutral-800">
-      <button class="hover:opacity-100 opacity-60 px-2 rounded border border-red-500 text-red-500 self-start"
+      <button type="button"
+        class="hover:opacity-100 opacity-60 px-2 rounded border border-red-500 text-red-500 self-start"
         @click="deletePayment(payment.temporaryId!)">x</button>
 
       <currency-selector v-model:selectedId="payment.currencyId"></currency-selector>

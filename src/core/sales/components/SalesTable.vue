@@ -61,7 +61,7 @@ function getTotalSale(orders: IOrder[]) {
         <th :class="headStyles">Estado</th>
         <th :class="headStyles">Cliente</th>
         <th :class="headStyles">Descripción</th>
-        <th :class="headStyles">Total</th>
+        <th :class="headStyles">Total $</th>
         <th :class="headStyles">Acciones</th>
       </tr>
     </thead>
@@ -77,6 +77,7 @@ function getTotalSale(orders: IOrder[]) {
         <td class="px-2 py-4 align-middle">{{ getTotalSale(sale.orders) }}</td>
         <td class="px-2 py-4 align-middle flex gap-4 font-bold h-full">
           <div class="flex gap-2 h-100 items-center">
+
             <button class="hover:opacity-100 opacity-60 px-3 rounded border border-yellow-500 text-yellow-500"
               @click="router.push(`/update-sale/${sale.id}`)">detalle</button>
           </div>

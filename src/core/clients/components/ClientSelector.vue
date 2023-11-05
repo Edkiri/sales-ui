@@ -1,9 +1,9 @@
 <template>
   <div class="flex items-center my-2 gap-4">
     <h4>Cliente </h4>
-    <button class="hover:opacity-100 opacity-60 px-3 rounded border border-blue-500 text-blue-500"
+    <button type="button" class="hover:opacity-100 opacity-60 px-3 rounded border border-blue-500 text-blue-500"
       @click="renderClientModal">buscar</button>
-    <button v-if="clientSelected" class="hover:opacity-100 opacity-60 px-3 rounded border border-red-500 text-red-500"
+    <button type="button" v-if="clientSelected" class="hover:opacity-100 opacity-60 px-3 rounded border border-red-500 text-red-500"
       @click="unselect">x</button>
     <span class="text-red-500 my-2" v-if="!clientSelected">No registrar</span>
 
@@ -20,7 +20,7 @@
   <div v-if="showClientModal" class="rounded-md absolute top-10 right-28 left-28 bg-zinc-950 p-4 z-10 max-w-4xl mx-auto">
     <div class="flex align-center w-full justify-between">
       <h1>Buscar cliente</h1>
-      <button @click="hideClientModal">X</button>
+      <button type="button" @click="hideClientModal">X</button>
     </div>
 
     <clients-table :selecting="true" v-model:selected="clientSelected"></clients-table>

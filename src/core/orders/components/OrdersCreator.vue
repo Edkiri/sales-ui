@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center my-2 gap-4">
     <h4>Órdenes</h4>
-    <button class="hover:opacity-100 opacity-60 px-3 rounded border border-green-500 text-green-500"
+    <button type="button" class="hover:opacity-100 opacity-60 px-3 rounded border border-green-500 text-green-500"
       @click="renderProductModal">agregar</button>
     <span class="text-red-500 my-2" v-if="!orders.length">No hay órdenes creadas</span>
   </div>
@@ -16,7 +16,7 @@
         <div class="flex gap-1 grow items-center">
 
           <div class="flex items-center gap-4">
-            <button class="hover:opacity-100 opacity-60 px-2 rounded border border-red-500 text-red-500 self-start"
+            <button type="button" class="hover:opacity-100 opacity-60 px-2 rounded border border-red-500 text-red-500 self-start"
               @click="deleteOrder(order.temporaryId!)">x</button>
 
             <div class="flex flex-col">
@@ -43,7 +43,7 @@
   <div v-if="showClientModal" class="rounded-md absolute top-10 right-28 left-28 bg-zinc-950 p-4 z-10 max-w-4xl mx-auto">
     <div class="flex align-center w-full justify-between">
       <h1>Buscar producto</h1>
-      <button @click="hideClientModal">X</button>
+      <button type="button" @click="hideClientModal">X</button>
     </div>
     <div class="max-w-4xl">
       <products-table :selecting="true" v-model:selected="selectedProduct"></products-table>

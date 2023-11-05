@@ -75,9 +75,10 @@ function previousPage() {
 
   <div class="flex gap-4 items-center pb-2 justify-end">
     <h4>página {{ currentPage }} de {{ totalPages }}</h4>
-    <button @click="previousPage" :disabled="currentPage === 1" class="text-sm text-indigo-400">{{ '<' }}
+    <button type="button" @click="previousPage" :disabled="currentPage === 1" class="text-sm text-indigo-400">{{ '<' }}
         anterior</button>
-        <button @click="nextPage" :disabled="currentPage === totalPages" class="text-sm text-indigo-400">siguiente
+        <button type="button" @click="nextPage" :disabled="currentPage === totalPages"
+          class="text-sm text-indigo-400">siguiente
           ></button>
   </div>
   <table class="w-full border border-neutral-800 dark:border-neutral-600">
@@ -106,10 +107,10 @@ function previousPage() {
         <td class="px-2 py-4 align-middle">{{ product.stock }}</td>
         <td class="px-2 py-4 align-middle flex gap-4 font-bold h-full">
           <div class="flex gap-2 h-100 items-center">
-            <button v-if="!selecting"
+            <button type="button" v-if="!selecting"
               class=" hover:opacity-100 opacity-60 px-3 rounded border border-yellow-500 text-yellow-500"
               @click="router.push(`/update-product/${product.id}`)">detalle</button>
-            <button v-if="selecting"
+            <button type="button" v-if="selecting"
               class=" hover:opacity-100 opacity-60 px-3 rounded border border-green-500 text-green-500"
               @click="$emit('update:selected', product)">agregar</button>
 

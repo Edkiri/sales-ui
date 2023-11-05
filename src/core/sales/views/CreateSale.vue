@@ -17,7 +17,7 @@
       <payments-creator v-model:payments="payments"></payments-creator>
     </div>
 
-    <app-button label="Crear venta"></app-button>
+    <app-button type="submit" label="Crear venta"></app-button>
 
     <div class="flex flex-col w-100 items-center mt-4 gap-1">
       <span v-if="Array.isArray(error) && error.length" v-for="err in error" :key="err"
@@ -62,7 +62,7 @@ async function submit() {
     }
     await createSale(sale);
 
-    // router.push({ path: '/clients' });
+    router.push({ path: '/sales' });
   } catch (err: any) {
     console.log(err);
     error.value = err.response.data.message;
