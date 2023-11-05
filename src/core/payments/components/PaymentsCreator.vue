@@ -13,8 +13,13 @@
     <div v-for="payment in payments" class="flex gap-4 my-2 items-stretch border p-2 rounded border-neutral-800">
 
       <div>
-        <outline-button label="x" color="red-500"
+        <outline-button v-if="payment.temporaryId" label="x" color="red-500"
           :click-function="() => deletePayment(payment.temporaryId!)"></outline-button>
+
+        <div v-if="(payment as IPayment).id" class="self-start">
+          <outline-button label="x" color="red-500"
+            :click-function="() => deletePaymentFunc((payment as IPayment).id)"></outline-button>
+        </div>
       </div>
 
       <currency-selector v-model:selectedId="payment.currencyId"></currency-selector>
@@ -30,6 +35,7 @@
 </template>
 
 <script setup lang="ts">
+import { PropType } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
 import AppInput from '../../../components/AppInput.vue';
 import CurrencySelector from '../../currencies/components/CurrencySelector.vue';
@@ -38,7 +44,7 @@ import OutlineButton from '../../../components/OutlineButton.vue';
 
 const props = defineProps({
   payments: {
-    type: Array<Payment>,
+    type: Array as PropType<(Payment | IPayment)[]>,
     default: [],
   }
 })
@@ -57,5 +63,10 @@ function createPayment() {
 function deletePayment(temporaryId: string) {
   const filteredPayments = props.payments.filter(payment => payment.temporaryId !== temporaryId);
   emit('update:payments', filteredPayments);
-} 
+}
+
+function deletePaymentFunc(paymentId: number) {
+  const filteredPayments = props.payments.filter((payment) => (payment as IPayment).id !== paymentId);
+  emit('update:payments', filteredPayments);
+}
 </script>

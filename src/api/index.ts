@@ -19,7 +19,6 @@ export async function createClient(payload: Client) {
 }
 
 export async function createSale(payload: Sale) {
-  console.log(payload);
   const { data } = await axios.post<any, AxiosResponse<ISale>, any>(
     `${API_URL}/sales`,
     payload
@@ -105,4 +104,9 @@ export async function findClients(query: ClientFilters) {
     any
   >(`${API_URL}/clients`, { params: query });
   return data;
+}
+
+export async function deleteOrder(id: string | number) {
+  await axios.delete(`${API_URL}/orders/${id}`);
+  return true;
 }

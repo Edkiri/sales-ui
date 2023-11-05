@@ -4,7 +4,6 @@
       <h1 class="text-2xl">Venta {{ sale.id }}</h1>
     </div>
 
-
     <form @submit.prevent="" class="flex flex-col gap-2">
       <div class="flex flex-col border-b border-neutral-700">
         <client-selector v-model:client="client"></client-selector>
@@ -21,7 +20,6 @@
       <app-button :disabled="!updateble" type="submit" label="Actualizar venta"></app-button>
     </form>
 
-
   </div>
 </template>
 
@@ -36,12 +34,16 @@ import AppButton from '../../../components/AppButton.vue';
 
 const sale = ref<ISale | undefined>(undefined);
 const client = ref<IClient | undefined>(undefined);
-const orders = ref<IOrder[] | undefined>(undefined);
-const payments = ref<IPayment[] | undefined>(undefined);
+const orders = ref<IOrder[] | Order[] | undefined>(undefined);
+const payments = ref<IPayment[] | Payment[] | undefined>(undefined);
 const loading = ref(false);
 const error = ref('');
 
 const ordersToCreate = ref<Order[] | undefined>(undefined);
+const ordersToDelete = ref<IOrder[]>([]);
+
+const paymentsToCreate = ref<Payment[] | undefined>(undefined);
+const paymentsToDelete = ref<IPayment[]>([]);
 
 async function getData() {
   try {
@@ -69,7 +71,19 @@ async function getData() {
 getData();
 
 watch(orders, () => {
-  ordersToCreate.value = orders.value?.filter(order => order.temporaryId);
+  if (orders.value?.length && sale.value) {
+    ordersToCreate.value = orders.value.filter(order => order.temporaryId);
+    const currentOrdersIds = orders.value.map((order: any) => order.id);
+    ordersToDelete.value = sale.value.orders.filter((order: IOrder) => !currentOrdersIds.includes(order.id) && order.id)
+  }
+})
+
+watch(orders, () => {
+  if (payments.value?.length && sale.value) {
+    paymentsToCreate.value = payments.value.filter(payment => payment.temporaryId);
+    const currentPaymentsIds = payments.value.map((payment: any) => payment.id);
+    paymentsToDelete.value = sale.value.payments.filter((payment: IPayment) => !currentPaymentsIds.includes(payment.id) && payment.id)
+  }
 })
 
 const updateble = computed(() => {
