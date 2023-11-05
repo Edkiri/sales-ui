@@ -3,6 +3,7 @@
 import { ref, reactive } from 'vue';
 import { findSales } from '../../../api';
 import router from '../../../router';
+import OutlineButton from '../../../components/OutlineButton.vue';
 
 const headStyles = "text-left p-2 py-3 bg-blue-400 dark:bg-blue-900 border-neutral-800 dark:border-neutral-600";
 
@@ -78,8 +79,9 @@ function getTotalSale(orders: IOrder[]) {
         <td class="px-2 py-4 align-middle flex gap-4 font-bold h-full">
           <div class="flex gap-2 h-100 items-center">
 
-            <button class="hover:opacity-100 opacity-60 px-3 rounded border border-yellow-500 text-yellow-500"
-              @click="router.push(`/update-sale/${sale.id}`)">detalle</button>
+            <outline-button color="yellow-500" label="detalle"
+              :click-function="() => router.push(`/update-sale/${sale.id}`)"></outline-button>
+
           </div>
 
         </td>

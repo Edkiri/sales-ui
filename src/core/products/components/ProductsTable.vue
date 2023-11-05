@@ -5,6 +5,7 @@ import { findProducts } from '../../../api';
 import router from '../../../router';
 import AppInput from '../../../components/AppInput.vue';
 import AppButton from '../../../components/AppButton.vue';
+import OutlineButton from '../../../components/OutlineButton.vue';
 
 const headStyles = "text-left p-2 py-3 bg-blue-400 dark:bg-blue-900 border-neutral-800 dark:border-neutral-600";
 
@@ -107,12 +108,12 @@ function previousPage() {
         <td class="px-2 py-4 align-middle">{{ product.stock }}</td>
         <td class="px-2 py-4 align-middle flex gap-4 font-bold h-full">
           <div class="flex gap-2 h-100 items-center">
-            <button type="button" v-if="!selecting"
-              class=" hover:opacity-100 opacity-60 px-3 rounded border border-yellow-500 text-yellow-500"
-              @click="router.push(`/update-product/${product.id}`)">detalle</button>
-            <button type="button" v-if="selecting"
-              class=" hover:opacity-100 opacity-60 px-3 rounded border border-green-500 text-green-500"
-              @click="$emit('update:selected', product)">agregar</button>
+
+            <outline-button v-if="!selecting" label="detalle" color="yellow-500"
+              :click-function="() => router.push(`/update-product/${product.id}`)"></outline-button>
+
+            <outline-button v-if="selecting" color="green-500" label="agregar"
+              :click-function="() => $emit('update:selected', product)"></outline-button>
 
           </div>
 

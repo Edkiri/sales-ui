@@ -19,7 +19,7 @@
   <div v-if="showClientModal" class="rounded-md absolute top-10 right-28 left-28 bg-zinc-950 p-4 z-10 max-w-4xl mx-auto">
     <div class="flex align-center w-full justify-between">
       <h1>Buscar cliente</h1>
-      <button type="button" @click="hideClientModal">X</button>
+      <outline-button label="x" color="red-500" :click-function="hideClientModal"></outline-button>
     </div>
 
     <clients-table :selecting="true" v-model:selected="clientSelected"></clients-table>

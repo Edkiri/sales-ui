@@ -1,8 +1,7 @@
 <template>
   <div class="flex items-center my-2 gap-4">
     <h4>Órdenes</h4>
-    <button type="button" class="hover:opacity-100 opacity-60 px-3 rounded border border-green-500 text-green-500"
-      @click="renderProductModal">agregar</button>
+    <outline-button label="agregar" color="green-500" :click-function="renderProductModal"></outline-button>
     <span class="text-red-500 font-light my-2" v-if="!orders.length">No hay órdenes creadas</span>
   </div>
 
@@ -16,8 +15,11 @@
         <div class="flex gap-1 grow items-center">
 
           <div class="flex items-center gap-4">
-            <button type="button" class="hover:opacity-100 opacity-60 px-2 rounded border border-red-500 text-red-500 self-start"
-              @click="deleteOrder(order.temporaryId!)">x</button>
+
+            <div class="self-start">
+              <outline-button label="x" color="red-500"
+                :click-function="() => deleteOrder(order.temporaryId!)"></outline-button>
+            </div>
 
             <div class="flex flex-col">
               <span class="text-neutral-100">{{ order.product!.name }}</span>
@@ -37,13 +39,13 @@
   </div>
 
 
-  <div @click="hideClientModal" v-if="showClientModal"
+  <div @click="hideProductModal" v-if="showProductModal"
     class="absolute bg-zinc-900 top-0 right-0 left-0 bottom-0 opacity-70">
   </div>
-  <div v-if="showClientModal" class="rounded-md absolute top-10 right-28 left-28 bg-zinc-950 p-4 z-10 max-w-4xl mx-auto">
+  <div v-if="showProductModal" class="rounded-md absolute top-10 right-28 left-28 bg-zinc-950 p-4 z-10 max-w-4xl mx-auto">
     <div class="flex align-center w-full justify-between">
       <h1>Buscar producto</h1>
-      <button type="button" @click="hideClientModal">X</button>
+      <outline-button label="x" color="red-500" :click-function="hideProductModal"></outline-button>
     </div>
     <div class="max-w-4xl">
       <products-table :selecting="true" v-model:selected="selectedProduct"></products-table>
@@ -56,15 +58,16 @@ import { ref, watch } from 'vue';
 import { v4 as uuidv4 } from 'uuid';
 import ProductsTable from '../../products/components/ProductsTable.vue';
 import AppInput from '../../../components/AppInput.vue';
+import OutlineButton from '../../../components/OutlineButton.vue';
 
-const showClientModal = ref(false);
+const showProductModal = ref(false);
 const selectedProduct = ref<IProduct | undefined>(undefined);
 
 function renderProductModal() {
-  showClientModal.value = true;
+  showProductModal.value = true;
 }
-function hideClientModal() {
-  showClientModal.value = false;
+function hideProductModal() {
+  showProductModal.value = false;
 }
 
 const props = defineProps({
@@ -83,7 +86,7 @@ watch(selectedProduct, () => {
     productId: selectedProduct.value?.id
   } as Order;
   emit('update:orders', [...props.orders, { ...newOrder, quantity: 1, temporaryId: uuidv4() } as Order]);
-  hideClientModal();
+  hideProductModal();
 })
 
 function deleteOrder(temporaryId: string) {

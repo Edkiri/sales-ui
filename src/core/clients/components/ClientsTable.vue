@@ -5,6 +5,7 @@ import { findClients } from '../../../api';
 import router from '../../../router';
 import AppInput from '../../../components/AppInput.vue';
 import AppButton from '../../../components/AppButton.vue';
+import OutlineButton from '../../../components/OutlineButton.vue';
 
 const headStyles = "text-left p-2 py-3 bg-blue-400 dark:bg-blue-900 border-neutral-800 dark:border-neutral-600";
 
@@ -95,12 +96,12 @@ function previousPage() {
         <td class="px-2 py-4 align-middle">{{ client.phoneNumber }}</td>
         <td class="px-2 py-4 align-middle flex gap-4 font-bold h-full">
           <div class="flex gap-2 h-100 items-center">
-            <button type="button" v-if="!selecting"
-              class=" hover:opacity-100 opacity-60 px-3 rounded border border-yellow-500 text-yellow-500"
-              @click="router.push(`/update-client/${client.id}`)">detalle</button>
-            <button type="button" v-if="(selecting && clients?.length)"
-              class=" hover:opacity-100 opacity-60 px-3 rounded border border-blue-500 text-blue-500"
-              @click="$emit('update:selected', clients.find(item => item.id === client.id))">select</button>
+
+            <outline-button v-if="!selecting" label="detalle" color="yellow-500"
+              :click-function="() => router.push(`/update-client/${client.id}`)"></outline-button>
+
+            <outline-button v-if="(selecting && clients && clients.length)" label="select" color="green-500"
+              :click-function="() => $emit('update:selected', clients!.find(item => item.id === client.id))"></outline-button>
           </div>
 
         </td>

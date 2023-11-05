@@ -2,8 +2,9 @@
   <div class="flex flex-col gap-4">
     <div class="flex gap-4 items-center">
       <h1>Pagos</h1>
-      <button type="button" class="hover:opacity-100 opacity-60 px-3 rounded border border-green-500 text-green-500"
-        @click="createPayment">agregar</button>
+
+      <outline-button color="green-500" label="agregar" :click-function="createPayment"></outline-button>
+
       <span class="text-red-500 my-2 font-light" v-if="!payments.length">No hay pagos creados</span>
     </div>
   </div>
@@ -11,9 +12,11 @@
 
   <div class="max-w-4xl flex flex-col gap-2">
     <div v-for="payment in payments" class="flex gap-4 my-2 items-stretch border p-2 rounded border-neutral-800">
-      <button type="button"
-        class="hover:opacity-100 opacity-60 px-2 rounded border border-red-500 text-red-500 self-start"
-        @click="deletePayment(payment.temporaryId!)">x</button>
+
+      <div>
+        <outline-button label="x" color="red-500"
+          :click-function="() => deletePayment(payment.temporaryId!)"></outline-button>
+      </div>
 
       <currency-selector v-model:selectedId="payment.currencyId"></currency-selector>
 
@@ -32,6 +35,7 @@ import { v4 as uuidv4 } from 'uuid';
 import AppInput from '../../../components/AppInput.vue';
 import CurrencySelector from '../../currencies/components/CurrencySelector.vue';
 import PaymentMethodSelector from './PaymentMethodSelector.vue';
+import OutlineButton from '../../../components/OutlineButton.vue';
 
 const props = defineProps({
   payments: {
