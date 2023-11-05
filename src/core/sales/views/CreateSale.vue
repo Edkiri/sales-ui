@@ -35,6 +35,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { createSale } from '../../../api';
+import router from '../../../router';
 import ClientSelector from '../../clients/components/ClientSelector.vue';
 import OrdersCreator from '../../orders/components/OrdersCreator.vue';
 import PaymentsCreator from '../../payments/components/PaymentsCreator.vue';
