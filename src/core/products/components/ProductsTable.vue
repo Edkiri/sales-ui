@@ -63,9 +63,9 @@ function previousPage() {
 </script>
 
 <template>
-  <form @submit.prevent="getData" class="max-w-lg flex gap-4 my-2 items-center">
-    <app-input :isLoading="loading" :small="true" label="Nombre" v-model:value="filters.name"></app-input>
-    <app-input :isLoading="loading" :small="true" label="Referencia" v-model:value="filters.reference"></app-input>
+  <form @submit.prevent="getData" class="max-w-lg flex gap-4 my-1 items-center">
+    <app-input :isLoading="loading" small label="Nombre" v-model:value="filters.name"></app-input>
+    <app-input :isLoading="loading" small label="Referencia" v-model:value="filters.reference"></app-input>
 
     <div class="min-h-full flex self-end">
 
@@ -75,12 +75,12 @@ function previousPage() {
   </form>
 
   <div class="flex gap-4 items-center pb-2 justify-end">
-    <h4>página {{ currentPage }} de {{ totalPages }}</h4>
     <button type="button" @click="previousPage" :disabled="currentPage === 1" class="text-sm text-indigo-400">{{ '<' }}
         anterior</button>
         <button type="button" @click="nextPage" :disabled="currentPage === totalPages"
           class="text-sm text-indigo-400">siguiente
           ></button>
+        <h4>página {{ currentPage }} de {{ totalPages }}</h4>
   </div>
   <table class="w-full border border-neutral-800 dark:border-neutral-600">
     <thead>
