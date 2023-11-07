@@ -17,8 +17,9 @@
         <app-input label="Stock" :isLoading="loading" v-model:value="form.stock"></app-input>
       </div>
 
-      <app-checkbox  v-if="!loading" v-model:isActive="form.isActive" label="Estado" isActiveMessage="Activo" deactiveMessage="Inactivo. No disponible para ventas."></app-checkbox>
-      
+      <app-checkbox v-if="!loading" v-model:isActive="form.isActive" label="Estado" isActiveMessage="Activo"
+        deactiveMessage="Inactivo. No disponible para ventas."></app-checkbox>
+
     </div>
 
     <app-button type="submit" label="Actualizar producto" :disabled="loading"></app-button>
@@ -39,8 +40,6 @@
     </div>
 
   </form>
-
-
 </template>
 
 <script setup lang="ts">
