@@ -5,7 +5,7 @@
     <span class="text-red-500 font-light my-2" v-if="!orders.length">No hay órdenes creadas</span>
   </div>
 
-  <div class="flex flex-col gap-2">
+  <div class="max-w-4xl flex flex-col gap-2">
 
     <div class="flex gap-2 justify-between border p-2 my-2 rounded border-neutral-800" v-if="orders.length"
       v-for="(order, index) in orders" :key="index">

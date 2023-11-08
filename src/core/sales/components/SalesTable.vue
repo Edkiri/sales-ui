@@ -56,11 +56,11 @@ function getTotalProducts(orders: IOrder[]) {
 
 <template>
   <div class="flex gap-4 items-center pb-2 justify-end">
-    <h4>página {{ currentPage }} de {{ totalPages }}</h4>
     <button @click="previousPage" :disabled="currentPage === 1" class="text-sm text-indigo-400">{{ '<' }}
         anterior</button>
         <button @click="nextPage" :disabled="currentPage === totalPages" class="text-sm text-indigo-400">siguiente
           ></button>
+        <h4>página {{ currentPage }} de {{ totalPages }}</h4>
   </div>
   <table class="w-full border border-neutral-800 dark:border-neutral-600">
     <thead>
