@@ -18,20 +18,11 @@
 
     <app-button type="submit" label="Actualizar cliente" :disabled="loading"></app-button>
 
-    <div class="flex flex-col w-100 items-center mt-4 gap-1">
-      <span v-if="Array.isArray(error) && error.length" v-for="err in error" :key="err"
-        class="text-red-700 text-md opacity-80">
-        {{ err }}
-      </span>
+    <error-message :error="error"></error-message>
 
-      <span v-if="!Array.isArray(error)" class="text-red-700 text-md opacity-80">
-        {{ error }}
-      </span>
-
-      <span v-if="successUpdated" class="text-green-600 :dark:text-green-600">
-        Cliente actualizado exitosamente
-      </span>
-    </div>
+    <span v-if="successUpdated" class="text-green-600 :dark:text-green-600">
+      Cliente actualizado exitosamente
+    </span>
 
   </form>
 </template>
@@ -42,6 +33,8 @@ import AppInput from '../../../components/AppInput.vue'; //TODO: Setup path alia
 import AppButton from '../../../components/AppButton.vue';
 import router from '../../../router';
 import { getClientDetails, updateClient } from '../../../api';
+import ErrorMessage from '../../../components/ErrorMessage.vue';
+
 const clientForm = reactive({
   name: "",
   phoneNumber: "",

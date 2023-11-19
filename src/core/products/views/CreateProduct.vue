@@ -19,28 +19,21 @@
       <app-checkbox  v-if="!loading" v-model:isActive="form.isActive" label="Estado" isActiveMessage="Activo" deactiveMessage="Inactivo. No disponible para ventas."></app-checkbox>
     </div>
 
-    <app-button label="Crear producto" :disabled="loading"></app-button>
+    <app-button label="Crear producto" type="submit" :disabled="loading"></app-button>
 
-    <div class="flex flex-col w-100 items-center mt-4 gap-1">
-      <span v-if="Array.isArray(error) && error.length" v-for="err in error" :key="err" class="text-red-700 text-md opacity-80">
-        {{ err }}
-      </span>
-  
-      <span v-if="!Array.isArray(error)" class="text-red-700 text-md opacity-80">
-        {{ error }}
-      </span>
-    </div>
+    <error-message :error="error"></error-message>
 
   </form>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import AppInput from '../../../components/AppInput.vue'; //TODO: Setup path aliases
+import AppInput from '../../../components/AppInput.vue';
 import { createProduct } from '../../../api';
 import router from '../../../router';
 import AppButton from '../../../components/AppButton.vue';
 import AppCheckbox from '../../../components/AppCheckbox.vue';
+import ErrorMessage from '../../../components/ErrorMessage.vue';
 
 const form = reactive({
   name: "",

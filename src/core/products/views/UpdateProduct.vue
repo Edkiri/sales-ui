@@ -24,31 +24,24 @@
 
     <app-button type="submit" label="Actualizar producto" :disabled="loading"></app-button>
 
-    <div class="flex flex-col w-100 items-center mt-4 gap-1">
-      <span v-if="Array.isArray(error) && error.length" v-for="err in error" :key="err"
-        class="text-red-700 text-md opacity-80">
-        {{ err }}
-      </span>
+    <error-message :error="error"></error-message>
 
-      <span v-if="!Array.isArray(error)" class="text-red-700 text-md opacity-80">
-        {{ error }}
-      </span>
-
-      <span v-if="successUpdated" class="text-green-600 :dark:text-green-600">
-        Producto actualizado exitosamente
-      </span>
-    </div>
+    <span v-if="successUpdated" class="text-green-600 :dark:text-green-600">
+      Producto actualizado exitosamente
+    </span>
 
   </form>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import AppInput from '../../../components/AppInput.vue'; //TODO: Setup path aliases
-import AppButton from '../../../components/AppButton.vue';
-import AppCheckbox from '../../../components/AppCheckbox.vue';
 import router from '../../../router';
 import { getProductDetails, updateProduct } from '../../../api';
+import AppInput from '../../../components/AppInput.vue';
+import AppButton from '../../../components/AppButton.vue';
+import AppCheckbox from '../../../components/AppCheckbox.vue';
+import ErrorMessage from '../../../components/ErrorMessage.vue';
+
 const form = reactive({
   name: "",
   description: "",
@@ -59,7 +52,7 @@ const form = reactive({
   isActive: true
 })
 const loading = ref(false);
-const error = ref('');
+const error = ref<string | string[]>('');
 const product = ref<IProduct | null>(null)
 
 const successUpdated = ref(false);

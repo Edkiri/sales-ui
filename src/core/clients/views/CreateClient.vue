@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submit" class="my-4 flex flex-col  p-4 w-full rounded max-w-3xl mx-auto">
-    <h3 class="text-xl text-center my-1">Crear Producto</h3>
+    <h3 class="text-xl text-center my-1">Crear cliente</h3>
 
     <div class="flex flex-col gap-2">
 
@@ -16,28 +16,20 @@
 
     </div>
 
-    <app-button label="Crear producto" :disabled="loading"></app-button>
+    <app-button label="Crear cliente" type="submit" :disabled="loading"></app-button>
 
-    <div class="flex flex-col w-100 items-center mt-4 gap-1">
-      <span v-if="Array.isArray(error) && error.length" v-for="err in error" :key="err"
-        class="text-red-700 text-md opacity-80">
-        {{ err }}
-      </span>
-
-      <span v-if="!Array.isArray(error)" class="text-red-700 text-md opacity-80">
-        {{ error }}
-      </span>
-    </div>
+    <error-message :error="error"></error-message>
 
   </form>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import AppInput from '../../../components/AppInput.vue'; //TODO: Setup path aliases
+import AppInput from '../../../components/AppInput.vue';
 import { createClient } from '../../../api';
 import router from '../../../router';
 import AppButton from '../../../components/AppButton.vue';
+import ErrorMessage from '../../../components/ErrorMessage.vue';
 
 const form = reactive({
   name: "",
@@ -47,7 +39,7 @@ const form = reactive({
 })
 
 const loading = ref(false);
-const error = ref('');
+const error = ref<string | string[]>('');
 
 async function submit() {
   try {
@@ -62,7 +54,6 @@ async function submit() {
 
     router.push({ path: '/clients' });
   } catch (err: any) {
-    console.log(err);
     error.value = err.response.data.message;
   }
   finally {

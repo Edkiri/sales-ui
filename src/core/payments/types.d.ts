@@ -1,6 +1,6 @@
 type Payment = {
-  amount: number | string;
-  rate: number | string;
+  amount: number;
+  rate: number;
   paymentMethodId: number;
   currencyId: number;
   temporaryId?: string;

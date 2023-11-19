@@ -1,34 +1,21 @@
 <template>
-  <div class="flex justify-between items-center my-2 border-b border-neutral-700 pb-2">
+  <div class="flex items-center my-2 gap-8 border-b border-neutral-700 pb-2">
     <h1 class="text-2xl">Crear venta</h1>
+    <app-button :click-function="submit" label="Crear venta"></app-button>
   </div>
+
+  <sale-resume v-model:orders="orders" v-model:payments="payments"></sale-resume>
 
   <form @submit.prevent="submit" class="flex flex-col gap-2">
 
-    <div class="flex flex-col border-neutral-700">
-      <client-selector v-model:client="selectedClient"></client-selector>
-    </div>
 
-    <div class="flex flex-col border-neutral-700">
-      <orders-creator v-model:orders="orders"></orders-creator>
-    </div>
+    <client-selector v-model:client="selectedClient"></client-selector>
 
-    <div class="flex flex-col border-neutral-700">
-      <payments-creator v-model:payments="payments"></payments-creator>
-    </div>
+    <orders-creator v-model:orders="orders"></orders-creator>
 
-    <app-button type="submit" label="Crear venta"></app-button>
+    <payments-creator v-model:payments="payments"></payments-creator>
 
-    <div class="flex flex-col w-100 items-center mt-4 gap-1">
-      <span v-if="Array.isArray(error) && error.length" v-for="err in error" :key="err"
-        class="text-red-700 text-md text-center opacity-80">
-        {{ err }}
-      </span>
-
-      <span v-if="!Array.isArray(error)" class="text-red-700 text-md text-center opacity-80">
-        {{ error }}
-      </span>
-    </div>
+    <error-message :error="error"></error-message>
   </form>
 </template>
 
@@ -40,13 +27,15 @@ import ClientSelector from '../../clients/components/ClientSelector.vue';
 import OrdersCreator from '../../orders/components/OrdersCreator.vue';
 import PaymentsCreator from '../../payments/components/PaymentsCreator.vue';
 import AppButton from '../../../components/AppButton.vue';
+import SaleResume from '../components/SaleResume.vue';
+import ErrorMessage from '../../../components/ErrorMessage.vue';
 
 const selectedClient = ref<IClient | undefined>(undefined);
 const orders = ref<Order[]>([]);
 const payments = ref<Payment[]>([]);
 
 const loading = ref(false);
-const error = ref('');
+const error = ref<string | string[]>('');
 
 async function submit() {
   if (!orders.value.length) {

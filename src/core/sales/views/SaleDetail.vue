@@ -4,7 +4,7 @@
       <h1 class="text-2xl">Venta {{ sale.id }}</h1>
     </div>
 
-    <form @submit.prevent="" class="flex flex-col gap-2">
+    <form @submit.prevent="submit" class="flex flex-col gap-2">
       <div class="flex flex-col border-b border-neutral-700">
         <client-selector v-model:client="client"></client-selector>
       </div>
@@ -37,7 +37,7 @@ const client = ref<IClient | undefined>(undefined);
 const orders = ref<IOrder[] | Order[] | undefined>(undefined);
 const payments = ref<IPayment[] | Payment[] | undefined>(undefined);
 const loading = ref(false);
-const error = ref('');
+const error = ref<string | string[]>('');
 
 const ordersToCreate = ref<Order[] | undefined>(undefined);
 const ordersToDelete = ref<IOrder[]>([]);
@@ -74,11 +74,9 @@ watch(orders, () => {
   if (orders.value?.length && sale.value) {
     ordersToCreate.value = orders.value.filter(order => order.temporaryId);
     const currentOrdersIds = orders.value.map((order: any) => order.id);
-    ordersToDelete.value = sale.value.orders.filter((order: IOrder) => !currentOrdersIds.includes(order.id) && order.id)
-  }
-})
+    ordersToDelete.value = sale.value.orders.filter((order: IOrder) => !currentOrdersIds.includes(order.id) && order.id);
 
-watch(orders, () => {
+  }
   if (payments.value?.length && sale.value) {
     paymentsToCreate.value = payments.value.filter(payment => payment.temporaryId);
     const currentPaymentsIds = payments.value.map((payment: any) => payment.id);
@@ -87,6 +85,24 @@ watch(orders, () => {
 })
 
 const updateble = computed(() => {
-  return Boolean(ordersToCreate.value?.length);
+  const updatingOrders = Boolean(ordersToCreate.value?.length) || Boolean(ordersToDelete.value?.length);
+  const updatingPayments = Boolean(paymentsToCreate.value?.length) || Boolean(paymentsToDelete.value?.length);
+  return updatingOrders || updatingPayments;
 })
+
+async function submit() {
+  try {
+    loading.value = true;
+    error.value = '';
+
+    console.log("ordersToCreate.value", ordersToCreate.value);
+    console.log("ordersToDelete.value", ordersToDelete.value);
+    console.log("paymentsToCreate.value", paymentsToCreate.value);
+    console.log("paymentsToDelete.value", paymentsToDelete.value);
+  } catch (err: any) {
+    error.value = err.response.data.message;
+  } finally {
+    loading.value = false;
+  }
+}
 </script>
